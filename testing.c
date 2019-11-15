@@ -3,7 +3,7 @@
 #include <time.h>
 #include "hash_table.h"
 
-int main()
+int main(int argc, char* argv[])
 {
     clock_t start, end;
     double cpu_time_used;

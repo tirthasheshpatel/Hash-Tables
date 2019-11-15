@@ -5,18 +5,18 @@
 #include <stdlib.h>
 #include "backend.h"
 
+typedef struct _hash_table
+{
+    list_iterator *slots;
+    int size;
+}Table;
+
 Table* init_table(Table*);
 Table* insert(Table*, const char*, int);
 Table* _delete(Table*, const char*);
 int search(Table*, const char*);
 void update(Table*, const char*, int);
 void display(Table* table);
-
-typedef struct _hash_table
-{
-    list_iterator *slots;
-    int size;
-}Table;
 
 Table* init_table(Table* table)
 {
