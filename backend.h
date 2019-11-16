@@ -144,7 +144,7 @@ size_type string_to_int(const char key[])
     size_type int_key = 0;
     for(int i=length-1;i>=0;i--)
     {
-        int_key += (size_type)((i+1)*(int)key[i]);
+        int_key += ((size_type)(pow(2, i)))*((size_type)key[i]);
     }
     return int_key;
 }
