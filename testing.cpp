@@ -8,10 +8,18 @@ using std::chrono::nanoseconds;
 using std::chrono::high_resolution_clock;
 using std::chrono::duration_cast;
 
+typedef char* String;
+
 int main(int argc, char* argv[])
 {
+    String* buff_arr = (String*)malloc(1000000*sizeof(String));
+    for(int i=0;i<1000000;i++)
+    {
+        buff_arr[i] = (char*)malloc(33*sizeof(char));
+        itoa(i, buff_arr[i], 2);
+    }
+
     Table* table = 0;
-    // double* ins = (double*)calloc(1000000, sizeof(double));
     FILE* ins = fopen("insert_time.csv", "w");
     fputs("iteration,time(nanoseconds)\n", ins);
     table = init_table(table);
@@ -25,10 +33,8 @@ int main(int argc, char* argv[])
     long long time_taken = (long long)duration_cast<nanoseconds>(end-start).count();
     for(long long i=0;i<1000000;i++)
     {
-        char buffer[33];
-        itoa(i, buffer, 2);
         if(i%1000 == 500) start = high_resolution_clock::now();
-        table = insert(table, buffer, i);
+        table = insert(table, buff_arr[i], i);
         if(i%1000 == 0 && i!=0)
         {
             end = high_resolution_clock::now();
@@ -45,10 +51,8 @@ int main(int argc, char* argv[])
      */
     for(long long i=0;i<1000000;i++)
     {
-        char buffer[33];
-        itoa(i, buffer, 2);
         if(i%1000 == 500) start = high_resolution_clock::now();
-        search(table, buffer);
+        search(table, buff_arr[i]);
         if(i%1000 == 0 && i!=0)
         {
             end = high_resolution_clock::now();
@@ -65,10 +69,8 @@ int main(int argc, char* argv[])
      */
     for(long long i=0;i<1000000;i++)
     {
-        char buffer[33];
-        itoa(i, buffer, 2);
         if(i%1000 == 500) start = high_resolution_clock::now();
-        table = _delete(table, buffer);
+        table = _delete(table, buff_arr[i]);
         if(i%1000 == 0 && i!=0)
         {
             end = high_resolution_clock::now();
@@ -76,5 +78,6 @@ int main(int argc, char* argv[])
             fprintf(del, "%lld,%lld\n", i/1000, time_taken);
         }
     }
+ 
     fclose(del);
 }

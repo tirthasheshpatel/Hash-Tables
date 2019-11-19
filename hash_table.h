@@ -15,7 +15,7 @@ Table* init_table(Table*);
 Table* insert(Table*, const char*, int);
 Table* _delete(Table*, const char*);
 int search(Table*, const char*);
-void update(Table*, const char*, int);
+Table* update(Table*, const char*, int);
 void display(Table* table);
 
 Table* init_table(Table* table)
@@ -80,10 +80,18 @@ int search(Table* table, const char key[])
     return element->value;
 }
 
-void update(Table* table, const char key[], int new_value)
+Table* update(Table* table, const char key[], int new_value)
 {
-    // Not implemented yet!
-    return;
+    // table->slots
+    size_type int_key = string_to_int(key);
+    list_iterator element = search_in_hash_table(table->slots, int_key);
+    if(0 == element)
+    {
+        printf("String to be updated not present in table!\n");
+        return table;
+    }
+    element->value = new_value;
+    return table;
 }
 
 void display(Table* table)

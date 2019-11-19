@@ -1,29 +1,14 @@
 #ifndef GUARD_LIL_H
 #define GUARD_LIL_H
 
-
-/**
- * @author Tirth Patel  tirthasheshpatel@gmail.com
- * 
- * @note Implements linked list to be used for hash tables.
- * Specially designed for hash tables. Not to be used
- * externally.
- * 
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 
-// A pointer to the nodes in the list
-// is defined for easy use in functions.
-typedef struct Node* list_iterator;
 
-// Making the `size_t` keyword easier to interpret.
+typedef struct Node* list_iterator;
 typedef size_t size_type;
 
-// A structure of `Node` used in the
-// doubly linked list for storing keys
-// and pointers to neighbouring Nodes.
+
 struct Node
 {
     int key; // Stores the value to be accessed by the user at runtime.
@@ -72,26 +57,7 @@ list_iterator create_doubly_linked_list(int key, int value, const char raw_key[]
     return first;
 }
 
-/**
- * Argments
- * --------
- * `first` (list_iterator) -> A pointer to the first element in the list.
- *                                      Initialize the list using `create_doubly_linked_list()`
- *                                      to get this pointer variable
- * `key`   (int)           -> The element to be stored in the list.
- * `value` (int)           -> Value to be inserted at the key.
- * --------
- * This function is used to insert a Node at the front of the 
- * doubly linked list. The Node is intialized by the provided value
- * of the key and other attributes are initalized according to
- * the previously allocated nodes.
- * 
- * Returns
- * -------
- * `new_node` (list_iterator) -> A pointer variable pointing at the new
- *                               Node inserted using this function.
- * -------
- */
+
 list_iterator insert_in_front_of_the_doubly_linked_list(list_iterator first, int key, int value, const char raw_key[])
 {
     // Step 1: Allocate memory for the new node to be stored.
